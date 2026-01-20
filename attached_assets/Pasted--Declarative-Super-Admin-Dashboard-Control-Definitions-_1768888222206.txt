@@ -1,0 +1,206 @@
+
+Declarative Super Admin Dashboard (Control + Definitions, Minimal UI Optional)
+
+⸻
+
+CONTEXT
+
+You are executing Phase 4B of the WebWaka Modular Rebuild, under the governance of the WebWaka Ecosystem Constitution (v1.4 ratified).
+
+This phase builds on Phase 4A, which already delivered the Dashboard Control Engine (webwaka-core-dashboard-control).
+
+⚠️ Phase 4B does NOT re-implement visibility logic.
+All access, visibility, and gating MUST be resolved using Phase 4A’s engine ONLY.
+
+⸻
+
+SOURCE OF TRUTH
+	•	GitHub Org: ChangerPlanet
+	•	Vercel Account: https://vercel.com/webwaka
+	•	Dashboard Control Engine (already implemented):
+	•	webwaka-core-dashboard-control
+
+⸻
+
+TARGET REPOSITORY
+
+Repository to CREATE (if not already existing)
+
+webwaka-suite-dashboard-superadmin
+
+If the repo already exists:
+	•	Reuse it
+	•	Do NOT create a duplicate
+
+⸻
+
+SCOPE OF PHASE 4B (VERY IMPORTANT)
+
+THIS PHASE IS ABOUT:
+	•	Declarative dashboard definitions
+	•	Super Admin-specific menu structure
+	•	Control metadata (sections, groups, actions)
+	•	Optional minimal UI shell (ONLY if useful for validation)
+
+THIS PHASE IS NOT:
+	•	A full product UI
+	•	A routing framework
+	•	A permissions engine
+	•	A feature-flag engine
+	•	An entitlement engine
+
+Those already exist.
+
+⸻
+
+CORE DESIGN PRINCIPLE (NON-NEGOTIABLE)
+
+❗ ABSOLUTE RULE
+
+ALL visibility and access MUST be resolved via Phase 4A’s engine, using:
+	1.	Permissions (from webwaka-core-permissions)
+	2.	Entitlements (from webwaka-core-entitlements)
+	3.	Feature flags (from webwaka-core-feature-flags)
+	4.	Dashboard resolution (webwaka-core-dashboard-control)
+
+Phase 4B ONLY DECLARES dashboards.
+It NEVER decides visibility itself.
+
+⸻
+
+REQUIRED DELIVERABLES
+
+1️⃣ Dashboard Declarations (PRIMARY OUTPUT)
+
+Implement Super Admin dashboard declarations using the Phase 4A contract.
+
+Include (at minimum):
+
+Top-Level Sections
+	•	Platform Governance
+	•	Partners & Tenants
+	•	Pricing & Plans
+	•	Incentives & Affiliates
+	•	Feature Flags & Experiments
+	•	Branding / Whitelabel
+	•	Infrastructure & Deployments
+	•	Audit & Compliance
+	•	AI / Automation (future-gated)
+
+Each section MUST declare:
+	•	Required permissions
+	•	Required entitlements
+	•	Required feature flags (if any)
+	•	Optional time bounds
+
+📌 Do NOT hardcode roles
+📌 Do NOT assume admin = access
+
+⸻
+
+2️⃣ Dashboard Declaration Files
+
+Produce structured declaration files such as:
+
+/dashboards/superadmin.dashboard.ts
+/dashboards/superadmin.sections.ts
+
+Each declaration must be:
+	•	Pure data
+	•	Deterministic
+	•	Serializable
+	•	Compatible with Phase 4A engine
+
+⸻
+
+3️⃣ Resolution Integration (Read-Only)
+
+Use Phase 4A APIs to:
+	•	Resolve dashboard visibility
+	•	Generate dashboard snapshots
+	•	Verify snapshot integrity
+	•	Evaluate from snapshot (offline-safe)
+
+⚠️ You are consuming Phase 4A — not extending it.
+
+⸻
+
+4️⃣ Optional Minimal UI (STRICTLY OPTIONAL)
+
+If included:
+	•	Use minimal React or similar
+	•	No routing complexity
+	•	No stateful logic
+	•	Purpose: visual validation only
+
+The UI MUST:
+	•	Consume resolved dashboard output
+	•	Never contain access logic
+	•	Never hide/show elements manually
+
+If unsure → skip UI
+
+⸻
+
+TECHNICAL CONSTRAINTS
+	•	Language: TypeScript
+	•	Architecture: Pure declarations + composition
+	•	Determinism: Required
+	•	Tenant isolation: Required
+	•	Offline safety: Supported via snapshots
+
+⸻
+
+CI / VERCEL NOTES (DO NOT PANIC)
+	•	This repo MAY fail Vercel build if UI is absent
+	•	That is EXPECTED and ACCEPTABLE
+	•	Do NOT add fake build artifacts
+	•	Do NOT change Vercel settings
+
+⸻
+
+HARD STOP CONDITION (MANDATORY)
+
+Provide a test that proves:
+
+“Given a Super Admin context, permissions, entitlements, and feature flags, the system produces a deterministic, explainable dashboard structure using Phase 4A — both online and from snapshot.”
+
+Test must show:
+	•	A section hidden due to missing permission
+	•	A section hidden due to entitlement
+	•	A section gated by feature flag
+	•	Snapshot generation + verification
+	•	Offline evaluation equivalence
+
+⸻
+
+EXPLICIT EXCLUSIONS
+
+❌ No Partner dashboard
+❌ No Tenant dashboard
+❌ No pricing logic
+❌ No incentives logic
+❌ No database mutations
+❌ No background jobs
+❌ No AI execution
+❌ No deployment orchestration
+
+⸻
+
+REQUIRED FINAL REPORT
+
+When complete, provide:
+	1.	Summary of Declarations
+	2.	List of Sections + Gating Rules
+	3.	Proof of Phase 4A Consumption
+	4.	Hard Stop Test Results
+	5.	Final Commit SHA
+
+⸻
+
+STOP RULE
+
+⛔ STOP after submission
+⛔ Await explicit authorization before Phase 4C
+
+⸻
